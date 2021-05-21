@@ -29,4 +29,5 @@
 		p:sqlSessionFactory-ref="examSqlSession"
 		p:mapperInterface="com.thank.store.dao.ExamDAO" />
 		
+		
 </beans>
