@@ -45,7 +45,7 @@ public class ExamController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+		//exam
 		return "exam";
 	}
 	
