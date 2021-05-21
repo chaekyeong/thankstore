@@ -31,6 +31,13 @@ public class ExamController {
 		return "exam";
 	}
 	
+	@GetMapping("/lala")
+	public String index() {
+		
+		
+		return "lala";
+	}
+	
 	@PostMapping("/hello")
 	public String hello2(@ModelAttribute ExamDTO examDTO) {
 		try {

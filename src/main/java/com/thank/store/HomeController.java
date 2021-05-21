@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -31,9 +32,18 @@ public class HomeController {
 		
 		String formattedDate = dateFormat.format(date);
 		
-		model.addAttribute("serverTime", formattedDate );
-		
-		return "home";
+		//model.addAttribute("serverTime", formattedDate );
+		return "index2";
+		//return "index";
 	}
 	
+	@GetMapping("/index")
+	public String home2() {
+		return "index";
+	}
+	
+	@GetMapping("/sidebar")
+	public String home3() {
+		return "sidebar";
+	}
 }
