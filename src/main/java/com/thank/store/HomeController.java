@@ -46,4 +46,11 @@ public class HomeController {
 	public String home3() {
 		return "sidebar";
 	}
+	
+	
+	@GetMapping("/map")
+	public String mapTest() {
+		return "map";
+	}
+	
 }
