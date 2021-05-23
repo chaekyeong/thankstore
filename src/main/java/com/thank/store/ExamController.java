@@ -49,4 +49,9 @@ public class ExamController {
 		return "exam";
 	}
 	
+//	@GetMapping("/home")
+//	public String home2() {
+//		log.info("여기 탐");
+//		return "manager/index";
+//	}
 }

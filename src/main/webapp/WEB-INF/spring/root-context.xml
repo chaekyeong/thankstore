@@ -29,5 +29,16 @@
 		p:sqlSessionFactory-ref="examSqlSession"
 		p:mapperInterface="com.thank.store.dao.ExamDAO" />
 		
+	
+	<bean
+		id="managerSqlSession" class="org.mybatis.spring.SqlSessionFactoryBean" 
+		p:dataSource-ref="dataSource"
+		p:typeAliasesPackage="com.thank.store.dto"
+		/>
+	
+	<bean id="mangerDAO" class="org.mybatis.spring.mapper.MapperFactoryBean" 
+		p:sqlSessionFactory-ref="managerSqlSession"
+		p:mapperInterface="com.thank.store.dao.ManagerDAO" />
+		
 		
 </beans>
