@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="app" value="${pageContext.request.contextPath}" />
 <c:set var="dto" value="${customerDTO}" />
-<c:set var="mdto" value="${memberDTO}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -105,6 +104,7 @@
         ***********************************-->
         <div class="nk-sidebar">           
             <div class="nk-nav-scroll">
+            	
                 <ul class="metismenu" id="menu">
                     <li class="nav-label">카테고리</li>
                     <li class="mega-menu mega-menu-sm">
@@ -189,11 +189,12 @@
                                     <div class="card card-profile text-center">
                                         <span class="mb-1 text-warning"><i class="icon-people" ></i></span>
                                     </div>
-                                </div>
+                                </div> 
+                               
 
                                 <div class="media-body">
                                         <h3 class="mb-0" style="font-size:15px">${sessionScope.memberInfo.name} 님, 안녕하세요</h3>
-                                        <p class="text-muted mb-0">폐기머니 : ** 원</p>
+                                        <p class="text-muted mb-0">폐기머니 : ${dto.point} 원</p>
                                     </div>
                                     <p></p>
                                 <div class="row mb-5">
@@ -207,9 +208,7 @@
                                     <div class="col-12 text-center">
                                         <button class="btn btn-danger px-5">로그아웃</button>
                                     </div>
-                                </div>
-
-                              
+                                </div>                         
                             </div>
                         </div>  
                     </div>                  

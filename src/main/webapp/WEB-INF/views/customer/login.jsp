@@ -48,7 +48,7 @@
                                     </div>
                                     <button class="btn login-form__btn submit w-100" type="submit">로그인</button>
                                 </form>
-                                <p class="mt-5 login-form__footer">계정이 없으신가요? <a href="./customer/signup" class="text-primary">계정 만들기</a></p>
+                                <p class="mt-5 login-form__footer">계정이 없으신가요? <a href="./customer/signup" class="text-primary">계정 만들기</a></p> 
                             </div>
                         </div>
                     </div>
