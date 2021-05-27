@@ -61,16 +61,6 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
- 
-.transparent-button {
-    background-color: transparent !important;
-    background-image: none !important;
-    border-color: transparent;
-    border: none;
-
-    color: #FFFFFF;
-}
- 
 :root {
   --blue: #324cdd;
   --indigo: #6610f2;

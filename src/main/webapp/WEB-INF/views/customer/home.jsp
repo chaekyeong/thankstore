@@ -185,35 +185,24 @@
                     <div class="col-lg-4 col-xl-3">
                         <div class="card">
                             <div class="card-body">
-                                <div class="media align-items-center mb-4">
-                                <span class="mb-1 text-primary"><i class="icon-people"></i></span>
-                                    
-                                    
+                            	<div class="col">
+                                    <div class="card card-profile text-center">
+                                        <span class="mb-1 text-warning"><i class="icon-people" ></i></span>
+                                    </div>
                                 </div>
+
                                 <div class="media-body">
                                         <h3 class="mb-0" style="font-size:15px">${sessionScope.memberInfo.name} 님, 안녕하세요</h3>
                                         <p class="text-muted mb-0">폐기머니 : ** 원</p>
                                     </div>
+                                    <p></p>
                                 <div class="row mb-5">
-                                    <div class="col">
-                                        <div class="card card-profile text-center">
-                                            <span class="mb-1 text-primary"><i class="icon-people"></i></span>
-                                            <h3 class="mb-0">263</h3>
-                                            <p class="text-muted px-4">Following</p>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="card card-profile text-center">
-                                            <span class="mb-1 text-warning"><i class="icon-user-follow"></i></span>
-                                            <h3 class="mb-0">263</h3>
-                                            <p class="text-muted">Followers</p>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="col-12 text-center">
                                         <button class="btn btn-danger px-5">충전하기</button>
                                     </div>
                                     <h2>
-                                     
+                                    
                                     </h2>
                                     <div class="col-12 text-center">
                                         <button class="btn btn-danger px-5">로그아웃</button>

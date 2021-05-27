@@ -82,7 +82,6 @@ public class CustomerController {
 		String searchKeyword = "";
 		customerDTO = new CustomerDTO();
 		long purchasecount = 0;
-		log.info(memberInfo.getName());
 		try {
 			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
 			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
