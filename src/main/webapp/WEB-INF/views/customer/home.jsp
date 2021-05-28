@@ -28,7 +28,7 @@
 <script type="text/javascript"
    src="${app}/resources/customer/js/jquery-3.6.0.min.js"></script>
 </head>
-	<body>
+	<body style="background-color:white">
 
     <!--*******************
         Preloader start
@@ -53,7 +53,7 @@
         <!--**********************************
             Nav header start
         ***********************************-->
-        <div class="nav-header">
+         <div class="nav-header" style="width: 11.375rem;">
             <div class="brand-logo">
                 <a href="index.html">
                     <b class="logo-abbr"><img src="images/logo.png" alt=""> </b>
@@ -71,20 +71,21 @@
         <!--**********************************
             Header start
         ***********************************-->
-        <div class="header">    
-            <div class="header-content clearfix">
+		<div class="header">  
+            <div class="header-content clearfix" style="margin:0px">
                 
                 <div class="nav-control">
-                    <div class="hamburger">
+                    <div class="hamburger" >
                         <span class="toggle-icon"><i class="icon-menu"></i></span>
                     </div>
                 </div>
+                
                 <div class="header-left">
-                    <div class="input-group icons">
+                    <div class="input-group icons" style="padding: 0px">
                         <div class="input-group-prepend">
                             <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
                         </div>
-                        <input type="search" class="form-control" placeholder="카테고리 검색" aria-label="Search Dashboard">
+                        	<input type="search" class="form-control" placeholder="카테고리 검색" aria-label="Search Dashboard">
                         <div class="drop-down   d-md-none">
 							<form action="#">
 								<input type="text" class="form-control" placeholder="Search">
@@ -94,7 +95,7 @@
                 </div>
                 
             </div>
-        </div>
+      	</div>
         <!--**********************************
             Header end ti-comment-alt
         ***********************************-->
@@ -178,7 +179,7 @@
         <!--**********************************
             Content body start
         ***********************************-->
-        <div class="content-body">
+        <div class="content-body" style="color:#FFFFFF">
 			<!-- 카드/표시할 내용이 나오는 곳 -->
             <div class="container-fluid">
                 <div class="row">
@@ -200,14 +201,17 @@
                                 <div class="row mb-5">
                                     
                                     <div class="col-12 text-center">
-                                        <button class="btn btn-danger px-5">충전하기</button>
+                                        <button class="btn mb-1 btn-warning btn-block">충전하기</button>
                                     </div>
                                     <h2>
                                     
                                     </h2>
                                     <div class="col-12 text-center">
-                                        <button class="btn btn-danger px-5">로그아웃</button>
+                                        <button class="btn btn-danger px-5 btn-block">로그아웃</button>
                                     </div>
+                                    
+                                    
+                                    </h2>
                                 </div>                         
                             </div>
                         </div>  
