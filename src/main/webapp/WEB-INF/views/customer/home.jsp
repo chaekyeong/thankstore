@@ -24,11 +24,12 @@
    href="${app}/resources/quixlab/themes/quixlab/css/style.css"
    rel="stylesheet">
 
+
 <!-- jquery 경로 -->
 <script type="text/javascript"
    src="${app}/resources/customer/js/jquery-3.6.0.min.js"></script>
 </head>
-	<body style="background-color:white">
+	<body class="h-100" style="background-color:white; width:100%; height:100%" >
 
     <!--*******************
         Preloader start
@@ -48,22 +49,25 @@
     <!--**********************************
         Main wrapper start
     ***********************************-->
-    <div id="main-wrapper">
+    <div id="main-wrapper" style="width:100%; height:620px">
 
         <!--**********************************
             Nav header start
         ***********************************-->
-         <div class="nav-header" style="width: 11.375rem;">
+         <div class="nav-header" style="width: 180px; height: 80px; background-color:#ff643d;">
             <div class="brand-logo">
-                <a href="index.html">
+                <a href="index.html" style="width: 180px; height: 80px;">
                     <b class="logo-abbr"><img src="images/logo.png" alt=""> </b>
                     <span class="logo-compact"><img src="./images/logo-compact.png" alt=""></span>
-                    <span class="brand-title">
-                        <img src="images/logo-text.png" alt="">
+                    <span class="brand-title" style="text-color: white">
+                        Thank Store
                     </span>
                 </a>
             </div>
         </div>
+        
+<!--         <div style="background-color:#ff643d; width: 180px; height: 80px;">
+        </div> -->
         <!--**********************************
             Nav header end
         ***********************************-->
@@ -103,9 +107,11 @@
         <!--**********************************
             Sidebar start
         ***********************************-->
-        <div class="nk-sidebar">           
-            <div class="nk-nav-scroll">
-            	
+        <div class="nk-sidebar" style="height: 600px;  width: 180px">         
+        	
+			
+                   
+            <div class="nk-nav-scroll" style="height: 800px; width:180px;">            	
                 <ul class="metismenu" id="menu">
                     <li class="nav-label">카테고리</li>
                     <li class="mega-menu mega-menu-sm">
@@ -175,67 +181,76 @@
         <!--**********************************
             Sidebar end
         ***********************************-->
+		<div class="nk-sidebar" style="height: 600px;  width: 180px; margin-left:180px">
+				<div class="card-body" style="height:600px">
+					<div class="col">
+                          <div class="card card-profile text-center">
+                              <span class="mb-1 text-warning"><i class="icon-people" ></i></span>
+                          </div>
+                     </div> 
+                     
 
+					<div class="media-body">
+                              <h3 class="mb-0" style="font-size:15px">${sessionScope.memberInfo.name} 님, 안녕하세요</h3>
+                              <p class="text-muted mb-0">폐기머니 : ${dto.point} 원</p>
+					</div>
+                          <p></p>
+					<div class="row mb-5">
+                          
+                          <div class="col-12 text-center" style="margin: 10px 0 10px 0;">
+                              <button class="btn mb-1 btn-warning btn-block">지도보기</button>
+                          </div>
+                          
+                          <div class="col-12 text-center" style="margin: 10px 0 10px 0;">
+                              <button class="btn mb-1 btn-warning btn-block">충전하기</button>
+                          </div>
+                          
+                          <div class="col-12 text-center" style="margin: 10px 0 10px 0;">
+                              <button class="btn mb-1 btn-warning btn-block">충전하기</button>
+                          </div>
+                         
+                          <div class="col-12 text-center" style="margin: 10px 0 10px 0; position:bottom">
+                              <button class="btn mb-1 btn-warning btn-block">로그아웃</button>
+                          </div>
+                          </h2>
+					</div>                         
+				</div>
+			</div>
         <!--**********************************
             Content body start
         ***********************************-->
-        <div class="content-body" style="color:#FFFFFF">
-			<!-- 카드/표시할 내용이 나오는 곳 -->
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-4 col-xl-3">
-                        <div class="card">
-                            <div class="card-body">
-                            	<div class="col">
-                                    <div class="card card-profile text-center">
-                                        <span class="mb-1 text-warning"><i class="icon-people" ></i></span>
-                                    </div>
-                                </div> 
-                               
+        <div class="content-body" style="color:#76838f; height:600px; margin-left:360px">
+			<div id='box-right' style="width:80%; height:600px">
+	    <div id="product-search-box">
+   			<div class="row">
+	   			<div class="col-md-11">
+	    			<h3>${dto.name} 회원님의 구매목록</h3>
+	       		</div>
+	   		</div>
+	   	</div>
+	   	<hr style="border: solid 3px #1b4af5;">
+	   	<form>
+	   		<c:forEach var="purchaseDTO" items="${purchaseList}" varStatus="status">
+	   			<div id="list-box">
+	   				<div class="row">
+	   					<h6>상품명 : ${purchaseDTO.name}<br/></h6>
+	   					<div style="height:150px; text-align:center;">
+	   						<img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=${dto.name}+${purchaseDTO.productcode}+${purchaseDTO.no}&choe=UTF-8"/>
+	   					</div>
+	   				</div>
+	   			</div>
+	   		
+	   		</c:forEach>
+	   	</form>
 
-                                <div class="media-body">
-                                        <h3 class="mb-0" style="font-size:15px">${sessionScope.memberInfo.name} 님, 안녕하세요</h3>
-                                        <p class="text-muted mb-0">폐기머니 : ${dto.point} 원</p>
-                                    </div>
-                                    <p></p>
-                                <div class="row mb-5">
-                                    
-                                    <div class="col-12 text-center">
-                                        <button class="btn mb-1 btn-warning btn-block">충전하기</button>
-                                    </div>
-                                    <h2>
-                                    
-                                    </h2>
-                                    <div class="col-12 text-center">
-                                        <button class="btn btn-danger px-5 btn-block">로그아웃</button>
-                                    </div>
-                                    
-                                    
-                                    </h2>
-                                </div>                         
-                            </div>
-                        </div>  
-                    </div>                  
-                </div>
-            </div>
+	    
+    </div>
             <!-- #/ container -->
         </div>
         <!--**********************************
             Content body end
         ***********************************-->
-        
-        
-        <!--**********************************
-            Footer start
-        ***********************************-->
-        <div class="footer">
-            <div class="copyright">
-                <p>THANKSTORE</p>
-            </div>
-        </div>
-        <!--**********************************
-            Footer end
-        ***********************************-->
+    </div>
     </div>
     <!--**********************************
         Main wrapper end
@@ -249,7 +264,8 @@
     <script src="${app}/resources/quixlab/themes/quixlab/js/settings.js"></script>
     <script src="${app}/resources/quixlab/themes/quixlab/js/gleek.js"></script>
     <script src="${app}/resources/quixlab/themes/quixlab/js/styleSwitcher.js"></script>
-
+	<script src="${app}/resources/quixlab/themes/quixlab/plugins/sweetalert/js/sweetalert.min.js"></script>
+    <script src="${app}/resources/quixlab/themes/quixlab/plugins/sweetalert/js/sweetalert.init.js"></script>
 </body>
 
 	

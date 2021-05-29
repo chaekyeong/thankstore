@@ -42,9 +42,9 @@ public class CustomerController {
 		return "/customer/login";
 	}
 	
-	@GetMapping("/signup")
+	@GetMapping("signup")
 	public String signup() {
-		return "/customer/signup";
+		return "customer/signup";
 	}
 	
 	/*
@@ -151,7 +151,7 @@ public class CustomerController {
 			MemberDTO memberInfo = memberService.getMember(memberDTO);
 			if(memberService.getAccountType(memberDTO)==0) {
 				session.setAttribute("memberInfo", memberInfo);
-				return "redirect:./customer/home";
+				return "redirect:/customer/home";
 			}
 			else {
 				model.addAttribute("msg","아이디나 비밀번호가 틀립니다.");
@@ -196,7 +196,7 @@ public class CustomerController {
 				memberService.addCustomer(memberDTO);
 			}
 
-			return "redirect:./login";
+			return "redirect:../customer";
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			model.addAttribute("msg",e.getMessage());

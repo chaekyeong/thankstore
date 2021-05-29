@@ -119,7 +119,7 @@ body {
   line-height: 1.5;
   color: #76838f;
   text-align: left;
-  background-color: #F3F3F9; }
+  background-color: #F3F3F9; }/*#F3F3F9  */
 
 [tabindex="-1"]:focus {
   outline: 0 !important; }
@@ -7416,7 +7416,7 @@ sub {
   border-radius: 100%; }
 
 .content-body .container-fluid {
-  padding: 15px 30px 0; }
+  padding: 0px 0px 0; }
 
 @media (max-width: 767px) {
   .content-body .container-fluid {
@@ -7581,7 +7581,7 @@ sub {
 
 .nav-header {
   height: 5rem;
-  width: 15.1875rem;
+  width: 11.375rem;
   display: inline-block;
   text-align: left;
   position: absolute;
@@ -7676,9 +7676,9 @@ sub {
   height: 5rem;
   z-index: 1;
   position: relative;
-  padding: 0 0.9375rem;
+  padding: 0; /*0 0.9375rem*/
   background: #fff;
-  margin-left: 15.1875rem;
+  margin-left: 5.1875rem; /*13.1875->11.875->5.1875*/
   transition: all .2s ease; }
   .header .header-content {
     height: 100%; }
@@ -7689,7 +7689,7 @@ sub {
     .nav-header .brand-title {
       display: none; }
   .header-left {
-    margin-left: 1.875rem; }
+    margin-left: 0rem; }
     [direction="rtl"] .header-left {
       margin-left: auto;
       margin-right: 1.875rem; }
@@ -7703,7 +7703,7 @@ sub {
   @media only screen and (min-width: 1200px) and (max-width: 1350px) {
     [data-sidebar-style="full"] .header, [data-sidebar-style="overlay"] .header {
       width: calc(100% - 14.375rem);
-      margin-left: 14.375rem; } }
+      margin-left: 10.875rem; } } /* 여길 건드리면 더 예뻐짐*/
   @media only screen and (max-width: 767px) {
     [data-sidebar-style="full"] .header, [data-sidebar-style="overlay"] .header {
       width: calc(100% - 3.75rem);
@@ -8134,7 +8134,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   z-index: 0; }
   @media only screen and (min-width: 1200px) and (max-width: 1350px) {
     .content-body {
-      margin-left: 14.375rem; } }
+      margin-left: 11.375rem; } } /*15.375->11.375*/
 
 .nk-sidebar {
   width: 15.1875rem;
@@ -8148,7 +8148,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   transition: all .2s ease; }
   @media only screen and (min-width: 1200px) and (max-width: 1350px) {
     .nk-sidebar {
-      width: 14.375rem; } }
+      width: 11.375rem; } } /*15.375->11.375*/
   .nk-sidebar ul {
     padding: 0;
     margin: 0;
