@@ -60,16 +60,48 @@ $( function() {
    	 	});
 	});
 	
-	function buyBtn(cvsproduct){
-		alert(cvsproduct);
-		var accountno = '${dto.accountno}';
-   	 	var agree = confirm('구입하시겠습니까?');
-   	 	if(agree == false){
-   		 return;
-   		}
-	   
-	}
+	
 });
+
+function buyBtn(no){
+	var accountno = '${dto.accountno}';
+	$.ajax({
+   		 url: "onecvsproduct",
+   		 method: "POST",
+   		 data: {"no":no},
+   		 datatype: "json",
+   		 success:function(cvsProductDTO){
+   			var agree = confirm(cvsProductDTO.name+'을 '+ cvsProductDTO.discountPrice+'원에 구입하시겠습니까?');
+   			if(agree == false){
+   				return;
+   			}
+   			
+   			$.ajax({
+   				url: "purchaseproduct",
+   				method: "POST",
+   				data: {"no":no},
+				datatype: "json",
+				success:function(data){
+					if(data == null || data == ""){
+						alert("잔액부족");
+					}
+					else{
+						alert("구매성공");
+						location.reload();
+					}
+				},
+				error:function(request,status,error){
+			        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+			       }
+   			});
+   		 },
+   		 error:function(){
+   		    alert("실패");
+   		 }
+   	});
+
+	
+}
 
 </script>
 </head>
@@ -157,24 +189,26 @@ $( function() {
     	<hr style="border: solid 3px #1b4af5;">
     	<form>
   		<c:forEach var="cvstore" items="${cvstoreList}" varStatus="status">
-  		
 	    	<div id="list-box">
 	    		<div class="tab">
 	  			 <input class="accordion" type="radio" id="${cvstore.storecode}" name="cvstoreradio" value="${cvstore.name}"
 	  			 <c:if test="${status.first == true}"> checked </c:if>
 	  			 >
 			        <label class="tab-label" for="${cvstore.storecode}">${cvstore.name}</label>
-			        <div class="tab-content panel">
+			        <div class="tab-content panel" style="overflow:auto;">
 			        	<c:forEach var="cvsproduct" items="${cvstore.cvsProductList}">
-			        		<div>
+			        		<div id="${cvsproduct.no}">
+			        			<div class='col-sm-4'>
+	  								<img src='${app}/resources/product/images/${cvsproduct.name}.jpg' />
+	  							</div>
 			        			<h6>상품명 : ${cvsproduct.name}<br/></h6>
 			        			<h6>제조날짜 : <f:formatDate value="${cvsproduct.warehousingdate}" pattern="yyyy/MM/dd" /><br/></h6>
 		    				<h6>유통만료기한 : <f:formatDate value="${cvsproduct.expirationdate}" pattern="yyyy/MM/dd" /><br/></h6>
-		    				<h6 style="color:blue">남은시간 : ${cvsproduct.countTime}시간<br/></h6>
+		    				<h6 style="color:blue">남은시간 : ${-cvsproduct.countTime}시간<br/></h6>
 		    				<h6>원가 : ${cvsproduct.price}원<br/></h6>
 		    				<h6 style="color:red">할인가 : ${cvsproduct.discountPrice}원<br/></h6>
 		    				<h6 style="color:red">할인률 : ${cvsproduct.discountRate}%<br/></h6>
-		    				<input type="button" value="결제" onclick="buyBtn('${cvsproduct.name}')"/>
+		    				<input type="button" value="결제" onclick="buyBtn('${cvsproduct.no}')"/>
 		    				<hr>
 			        		</div>
 			        	</c:forEach>
@@ -183,10 +217,11 @@ $( function() {
 	   		</div>
     	</c:forEach>
     	</form>
+    	
     	<form>
-    	<div class="row">
-    		<div class='col-md-5'></div>
-   			<div class='col-md-5'>
+    	<div class="row" style="margin-top:5px;">
+    		<!-- <div class='col-md-5'></div> -->
+   			<div class='col'>
 				<c:if test="${searchDTO.pagingDTO.startPage == 1}">
 				<a class="btn btn-default">Previous</a>
 				</c:if>
@@ -208,7 +243,7 @@ $( function() {
 				<a class="btn btn-default">Next</a>
 				</c:if>
 				<c:if test="${searchDTO.pagingDTO.endPage != searchDTO.pagingDTO.totalPage}">
-				<a href="/store/customer/searchresult?mainCategory=${searchDTO.mainCategory}&subCategory=${searchDTO.subCategory}&searchKeyword=${searchDTO.searchKeyword}&pg=${pagingDTO.endPage+1}" class="btn btn-default">Next</a>
+				<a href="/store/customer/searchresult?mainCategory=${searchDTO.mainCategory}&subCategory=${searchDTO.subCategory}&searchKeyword=${searchDTO.searchKeyword}&pg=${searchDTO.pagingDTO.endPage+1}" class="btn btn-default">Next</a>
 				</c:if>
 			</div>
 		</div>

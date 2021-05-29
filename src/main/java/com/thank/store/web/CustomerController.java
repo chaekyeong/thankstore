@@ -19,7 +19,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.thank.store.dto.CusSearchDTO;
 import com.thank.store.dto.CustomerDTO;
+import com.thank.store.dto.CvsProductDTO;
 import com.thank.store.dto.CvstoreDTO;
+import com.thank.store.dto.ManagerDTO;
 import com.thank.store.dto.MemberDTO;
 import com.thank.store.dto.PagingDTO;
 import com.thank.store.dto.PurchaseListDTO;
@@ -56,18 +58,22 @@ public class CustomerController {
 	 * 21/05/27 01:30
 	 */
 	@GetMapping("/purchaselist")
-	public String qrcode(@RequestParam(defaultValue="0") long purchasecount ,@ModelAttribute CustomerDTO customerDTO ,Model model, HttpSession session) {
+	public String qrcode(@RequestParam(defaultValue="0") long purchasecount ,@RequestParam(defaultValue="1") long pg, @ModelAttribute CusSearchDTO searchDTO,@ModelAttribute CustomerDTO customerDTO ,Model model, HttpSession session) {
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
 		customerDTO = new CustomerDTO();
 		List<PurchaseListDTO> purchaseList;
+		searchDTO.setPagingDTO(new PagingDTO(pg));
+		searchDTO.setCustomer_no(memberInfo.getNo());
 		try {
 			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
 			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
-			purchaseList =customerService.getPurchaseList(memberInfo.getNo());
-			
+			purchaseList =customerService.getPurchaseList(searchDTO);
+			searchDTO.setPagingDTO(new PagingDTO(searchDTO.getPagingDTO().getPg(), purchasecount));
+			log.info(searchDTO.toString());
 			model.addAttribute("customerDTO", customerDTO);
 			model.addAttribute("purchasecount",purchasecount);
 			model.addAttribute("purchaseList",purchaseList);
+			model.addAttribute("searchDTO", searchDTO);
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
@@ -114,6 +120,7 @@ public class CustomerController {
 			searchDTO.setPagingDTO(new PagingDTO(searchDTO.getPagingDTO().getPg(), recordCount));
 			subCategoryList = customerService.getSubCategory(searchDTO);
 			log.info("검색기능 : "+searchDTO.toString());
+			log.info("검색상품 불러온 결과 1번 편의점 : "+cvstoreList.get(0).getCvsProductList().size());
 			model.addAttribute("customerDTO", customerDTO);				
 			model.addAttribute("purchasecount",purchasecount);
 			model.addAttribute("cvstoreList", cvstoreList);
@@ -249,5 +256,61 @@ public class CustomerController {
 			log.info(e.getMessage());
 		}
 		return subCategoryList;
+	}
+	
+	/*
+	 * 작성자: 방지훈
+	 * 작성일자: 2021/05/25 20:30
+	 */
+	@PostMapping(value="onecvsproduct", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public CvsProductDTO getOneCvsProduct(@RequestParam long no,Model model, HttpSession session) {
+		
+		CvsProductDTO cvsProductDTO = new CvsProductDTO();
+		
+		try {
+			cvsProductDTO = customerService.getOneCvsProduct(no);
+			log.info(cvsProductDTO.toString());
+			
+		} catch (Exception e) {
+			log.info(e.getMessage());
+			log.info("에러");
+		}
+		return cvsProductDTO;
+	}
+	
+	/*
+	 * 작성자: 방지훈
+	 * 작성일자: 2021/05/28 01:00
+	 */
+	@PostMapping(value="purchaseproduct", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public CustomerDTO purchaseProduct(@RequestParam long no,Model model, HttpSession session) {
+		
+		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
+		CustomerDTO customerDTO = new CustomerDTO();
+		CvsProductDTO cvsProductDTO = new CvsProductDTO();
+		
+		try {
+			cvsProductDTO = customerService.getOneCvsProduct(no);
+			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
+			log.info("구매자 정보 : "+customerDTO.toString());
+			if(cvsProductDTO.getDiscountPrice()>customerDTO.getPoint()) {
+				throw new RuntimeException("잔액부족");
+			}
+			log.info("상품 정보 : "+cvsProductDTO.toString());
+			customerDTO.setPurchasePrice(cvsProductDTO.getDiscountPrice());
+			customerService.updateCustomerPoint(customerDTO); //잔액차감
+			customerDTO.setCvsproductno(cvsProductDTO.getNo());
+			customerService.addPurchaseProduct(customerDTO);//구매목록에 등록
+			customerService.updatePurchaseProduct(cvsProductDTO);//상품 상태 변경 enrollment = 2
+			customerService.updateCvstorePoint(cvsProductDTO);//판매자 수익금 추가
+			
+			
+		} catch (Exception e) {
+			log.info(e.getMessage());
+			return null;
+		}
+		return customerDTO;
 	}
 }

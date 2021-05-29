@@ -251,6 +251,8 @@
             Content body end
         ***********************************-->
     </div>
+    <div id='box-right'>
+    효범이형 map 자리쓰세요
     </div>
     <!--**********************************
         Main wrapper end

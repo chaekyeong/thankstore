@@ -4,6 +4,7 @@
 <c:set var="app" value="${pageContext.request.contextPath}" />
 <c:set var="dto" value="${customerDTO}" />
 <c:set var="purchaseList" value="${purchaseList}" />
+<c:set var="searchDTO" value="${searchDTO}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,16 +63,49 @@
 	   		<c:forEach var="purchaseDTO" items="${purchaseList}" varStatus="status">
 	   			<div id="list-box">
 	   				<div class="row">
-	   					<h6>상품명 : ${purchaseDTO.name}<br/></h6>
+	   					<div class='col-sm-12' style="text-align:center;">
+	  								<img src='${app}/resources/product/images/${purchaseDTO.name}.jpg' />
+	   					<h6 >상품명 : ${purchaseDTO.name}<br/></h6>
 	   					<div style="height:150px; text-align:center;">
 	   						<img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=${dto.name}+${purchaseDTO.productcode}+${purchaseDTO.no}&choe=UTF-8"/>
+	   					</div>
 	   					</div>
 	   				</div>
 	   			</div>
 	   		
 	   		</c:forEach>
 	   	</form>
-
+		
+		<form>
+    	<div class="row">
+    		<!-- <div class='col-md-5'></div> -->
+   			<div class='col' style="margin-top:5px;">
+				<c:if test="${searchDTO.pagingDTO.startPage == 1}">
+				<a class="btn btn-default">Previous</a>
+				</c:if>
+				<c:if test="${searchDTO.pagingDTO.startPage != 1}">
+				<a href="/store/customer/purchaselist?pg=${searchDTO.pagingDTO.startPage-1}" class="btn btn-default">Previous</a>
+				</c:if>
+				
+				<c:forEach var="i" begin="${searchDTO.pagingDTO.startPage}" end="${searchDTO.pagingDTO.endPage}">
+				<c:if test="${searchDTO.pagingDTO.pg == i}">
+				<a href="#" class="btn btn-warning">${i}</a>
+				</c:if>
+				<c:if test="${searchDTO.pagingDTO.pg != i}">
+				<a href="/store/customer/purchaselist?pg=${i}" class="btn btn-warning">${i}</a>
+				</c:if>
+				</c:forEach>
+				
+				
+				<c:if test="${searchDTO.pagingDTO.endPage == searchDTO.pagingDTO.totalPage}">
+				<a class="btn btn-default">Next</a>
+				</c:if>
+				<c:if test="${searchDTO.pagingDTO.endPage != searchDTO.pagingDTO.totalPage}">
+				<a href="/store/customer/purchaselist?pg=${searchDTO.pagingDTO.endPage+1}" class="btn btn-default">Next</a>
+				</c:if>
+			</div>
+		</div>
+		</form>
 	    
     </div>
 </div>

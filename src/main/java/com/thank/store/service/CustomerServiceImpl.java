@@ -43,27 +43,12 @@ public class CustomerServiceImpl implements CustomerService{
 		for(CvstoreDTO cvstore:cvstoreList) {
 			searchDTO.setCvstore_no(cvstore.getNo());
 			List<CvsProductDTO> cvsProductList =customerDAO.searchCvsProductList(searchDTO);
+			log.info("불러온 상품 개수 : "+cvsProductList.size());
 			for (CvsProductDTO cvsProductDTO : cvsProductList) {
-				long leftTime = (cvsProductDTO.getCountTime());
-				long leftDay = leftTime / 24;
-				long countTime = 0;
-				
-				if (leftTime % 24 == 0) {
-					countTime = 0;
-				} else {
-					countTime = leftTime % 24;
-				}
-				
-				cvsProductDTO.setLeftDay(leftDay);
-				cvsProductDTO.setLeftTime(leftTime);
-				cvsProductDTO.setCountTime(countTime);
-				
-				
-				if (leftTime <= 24) {
-					int discountRate = getDiscountRate(leftTime);
-					cvsProductDTO.setDiscountRate(discountRate);
-					cvsProductDTO.setDiscountPrice(getDiscountPrice(cvsProductDTO.getPrice(), discountRate));
-				}
+				long countTime = (cvsProductDTO.getCountTime());
+				int discountRate = getDiscountRate(countTime);
+				cvsProductDTO.setDiscountRate(discountRate);
+				cvsProductDTO.setDiscountPrice(getDiscountPrice(cvsProductDTO.getPrice(), discountRate));
 			}
 			cvstore.setCvsProductList(cvsProductList);
 		}
@@ -92,6 +77,8 @@ public class CustomerServiceImpl implements CustomerService{
 		return discountPrice;
 	}
 
+	//작성자 : 방지훈
+	//작성일자 : 05/26 23:20
 	@Override
 	public int getDiscountRate(long countTime) throws Exception {
 		int discountRate = 0;
@@ -113,15 +100,67 @@ public class CustomerServiceImpl implements CustomerService{
 		return discountRate;
 	}
 	
-
+	//작성자 : 방지훈
+	//작성일자 : 05/26 23:20
 	@Override
 	public long getTotalRecord(CusSearchDTO searchDTO) throws Exception {
 		return customerDAO.getTotalRecord(searchDTO);
 	}
 
-	
+	//작성자 : 방지훈
+	//작성일자 : 05/27 10:20
 	@Override
-	public List<PurchaseListDTO> getPurchaseList(long no) throws Exception {
-		return customerDAO.getPurchaseList(no);
+	public List<PurchaseListDTO> getPurchaseList(CusSearchDTO searchDTO) throws Exception {
+		return customerDAO.getPurchaseList(searchDTO);
+	}
+	
+	/*
+	 * 작성자 : 방지훈
+	 * 작성일자 : 05/27 19:21
+	*/
+	@Override
+	public CvsProductDTO getOneCvsProduct(long no) throws Exception {
+		CvsProductDTO cvsProductDTO =  customerDAO.getOneCvsProduct(no);
+		long countTime = (cvsProductDTO.getCountTime());
+		int discountRate = getDiscountRate(countTime);
+		cvsProductDTO.setDiscountRate(discountRate);
+		cvsProductDTO.setDiscountPrice(getDiscountPrice(cvsProductDTO.getPrice(), discountRate));
+		return cvsProductDTO;
+	}
+	
+	/*
+	 * 작성자 : 방지훈
+	 * 작성일자 : 05/28 00:00
+	*/
+	@Override
+	public long updateCustomerPoint(CustomerDTO customerDTO) throws Exception {
+		return customerDAO.updateCustomerPoint(customerDTO);
+	}
+	
+	/*
+	 * 작성자 : 방지훈
+	 * 작성일자 : 05/28 00:10
+	*/
+	@Override
+	public long addPurchaseProduct(CustomerDTO customerDTO) throws Exception {
+		return customerDAO.addPurchaseProduct(customerDTO);
+	}
+	
+	/*
+	 * 작성자 : 방지훈
+	 * 작성일자 : 05/28 00:16
+	*/
+	@Override
+	public long updatePurchaseProduct(CvsProductDTO cvsProductDTO) throws Exception {
+		return customerDAO.updatePurchaseProduct(cvsProductDTO);
+	}
+	
+	/*
+	 * 작성자 : 방지훈
+	 * 작성일자 : 05/28 00:21
+	*/
+	@Override
+	public long updateCvstorePoint(CvsProductDTO cvsProductDTO) throws Exception {
+		return customerDAO.updateCvstorePoint(cvsProductDTO);
 	}
 }

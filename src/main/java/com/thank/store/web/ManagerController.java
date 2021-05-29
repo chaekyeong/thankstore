@@ -63,7 +63,7 @@ public class ManagerController {
 			ManPagingDTO pagingDTO = managerService.getPagingInfo(searchDTO);
 			model.addAttribute("allList", allList);
 			model.addAttribute("pagingDTO", pagingDTO);
-			
+			model.addAttribute("searchDTO", searchDTO);
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
@@ -101,7 +101,7 @@ public class ManagerController {
 			ManPagingDTO pagingDTO = managerService.getEnrolledPagingInfo(searchDTO);
 			model.addAttribute("enrolledList", enrolledList);
 			model.addAttribute("pagingDTO", pagingDTO);
-			
+			model.addAttribute("searchDTO", searchDTO);
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
@@ -139,7 +139,7 @@ public class ManagerController {
 			ManPagingDTO pagingDTO = managerService.getAvailPagingInfo(searchDTO);
 			model.addAttribute("enrollAvailList", enrollAvailList);
 			model.addAttribute("pagingDTO", pagingDTO);
-			
+			model.addAttribute("searchDTO", searchDTO);
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
@@ -188,6 +188,14 @@ public class ManagerController {
 		return "redirect:./" + cvsProductDTO.getFrom();
 	}
 	
+	/*
+	 * 작성자: 김수빈
+	 * 작성일자: 2021/05/24 10:50
+	 */
+	@GetMapping("/profit")
+	public String showProfit() {
+		return "/manager/profit";
+	}
 	/*
 	 * 작성자: 김수빈
 	 * 작성일자: 2021/05/24 10:50
@@ -253,12 +261,12 @@ public class ManagerController {
 	 */
 	@GetMapping("/logout")
 	public ModelAndView logout(HttpSession session) {
-		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
+																		
 		session.invalidate();
 		
 		ModelAndView mav = new ModelAndView("result");
-		mav.addObject("msg", memberInfo.getId() + 
-				 "(" + memberInfo.getName() + ")님이 로그아웃 하였습니다.");
+		mav.addObject("msg", "로그아웃 하였습니다.");
+																		   
 		mav.addObject("url", "./");
 		return mav;
 	}

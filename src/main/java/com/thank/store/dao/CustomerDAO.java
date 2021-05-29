@@ -25,6 +25,16 @@ public interface CustomerDAO {
 
 	long getTotalRecord(CusSearchDTO searchDTO) throws SQLException;
 
-	List<PurchaseListDTO> getPurchaseList(long no) throws SQLException;
+	List<PurchaseListDTO> getPurchaseList(CusSearchDTO searchDTO) throws SQLException;
+
+	CvsProductDTO getOneCvsProduct(long no) throws SQLException;
+
+	long updateCustomerPoint(CustomerDTO customerDTO) throws SQLException;
+
+	long addPurchaseProduct(CustomerDTO customerDTO) throws SQLException;
+
+	long updatePurchaseProduct(CvsProductDTO cvsProductDTO) throws SQLException;
+
+	long updateCvstorePoint(CvsProductDTO cvsProductDTO) throws SQLException;
 
 }
